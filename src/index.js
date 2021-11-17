@@ -2,7 +2,7 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import './assets/css/index.css'
 import reportWebVitals from './reportWebVitals'
-import Layout from './assets/components/layout/Layout'
+import Layout from './components/layout/Layout'
 
 document.title = 'ManaDev'
 
