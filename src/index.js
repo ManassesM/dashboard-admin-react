@@ -1,6 +1,9 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
+
 import './assets/css/index.css'
+import './assets/css/grid.css'
+
 import reportWebVitals from './reportWebVitals'
 import Layout from './components/layout/Layout'
 
