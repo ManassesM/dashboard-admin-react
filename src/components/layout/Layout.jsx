@@ -1,9 +1,10 @@
 import { BrowserRouter, Route } from 'react-router-dom'
 import Sidebar from '../sidebar/Sidebar'
-import Topnav from '../topnav/Topnav'
+
 import Routes from '../Routes'
 
 import './layout.css'
+import Topnav from '../topnav/TopNav'
 
 const Layout = () => {
 	return (
