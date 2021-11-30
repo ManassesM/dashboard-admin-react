@@ -2,9 +2,10 @@ import Chart from 'react-apexcharts'
 import { Link } from 'react-router-dom'
 
 import StatusCard from '../components/status-card/StatusCard'
-
 import statusCards from '../assets/JsonData/status-card-data.json'
-import { Table } from '../components/table/Table'
+
+import Table from '../components/table/Table'
+import Badge from '../components/badge/Badge'
 
 const chartOptions = {
 	series: [
@@ -91,6 +92,20 @@ const renderCusomerBody = (item, idx) => (
 	</tr>
 )
 
+const renderOrderHead = (item, idx) => <th key={idx}>{item}</th>
+
+const renderOrderBody = (item, idx) => (
+	<tr>
+		<td>{item.id}</td>
+		<td>{item.user}</td>
+		<td>{item.price}</td>
+		<td>{item.date}</td>
+		<td>
+			<Badge type={orderStatus[item.status]} content={item.status} />
+		</td>
+	</tr>
+)
+
 const latestOrders = {
 	header: ['order id', 'user', 'total price', 'date', 'status'],
 	body: [
@@ -139,20 +154,7 @@ const orderStatus = {
 	refund: 'danger',
 }
 
-const renderOrderHead = (item, idx) => <th key={idx}>{item}</th>
-
-const renderOrderBody = (item, idx) => (
-	<tr>
-		<td>{item.id}</td>
-		<td>{item.user}</td>
-		<td>{item.price}</td>
-		<td>{item.date}</td>
-		<td>
-			<span>{item.status}</span>
-		</td>
-	</tr>
-)
-
+// page itself
 const Dashboard = () => {
 	return (
 		<div>

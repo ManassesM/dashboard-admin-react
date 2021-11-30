@@ -2,7 +2,7 @@ import React from 'react'
 
 import './table.css'
 
-export const Table = (props) => {
+const Table = (props) => {
 	return (
 		<div>
 			<div className='table-wrapper'>
@@ -28,3 +28,5 @@ export const Table = (props) => {
 		</div>
 	)
 }
+
+export default Table
