@@ -1,7 +1,10 @@
-import statusCards from '../assets/JsonData/status-card-data.json'
-import StatusCard from '../components/status-card/StatusCard'
 import Chart from 'react-apexcharts'
 import { Link } from 'react-router-dom'
+
+import StatusCard from '../components/status-card/StatusCard'
+
+import statusCards from '../assets/JsonData/status-card-data.json'
+import { Table } from '../components/table/Table'
 
 const chartOptions = {
 	series: [
@@ -47,6 +50,109 @@ const chartOptions = {
 	},
 }
 
+const topCustomers = {
+	head: ['user', 'total orders', 'total spending'],
+	body: [
+		{
+			username: 'John Doe',
+			order: '490',
+			price: '$15,870',
+		},
+		{
+			username: 'Frank Iva',
+			order: '250',
+			price: '$12,251',
+		},
+		{
+			username: 'Anthony Baker',
+			order: '120',
+			price: '$10,840',
+		},
+		{
+			username: 'Frank Iva',
+			order: '110',
+			price: '$9,251',
+		},
+		{
+			username: 'Anthony Baker',
+			order: '80',
+			price: '$8,840',
+		},
+	],
+}
+
+const henderCusomerHead = (item, idx) => <th key={idx}>{item}</th>
+
+const renderCusomerBody = (item, idx) => (
+	<tr key={idx}>
+		<td>{item.username}</td>
+		<td>{item.order}</td>
+		<td>{item.price}</td>
+	</tr>
+)
+
+const latestOrders = {
+	header: ['order id', 'user', 'total price', 'date', 'status'],
+	body: [
+		{
+			id: '#OD1711',
+			user: 'john doe',
+			date: '17 Jun 2021',
+			price: '$900',
+			status: 'shipping',
+		},
+		{
+			id: '#OD1712',
+			user: 'frank iva',
+			date: '1 Jun 2021',
+			price: '$400',
+			status: 'paid',
+		},
+		{
+			id: '#OD1713',
+			user: 'anthony baker',
+			date: '27 Jun 2021',
+			price: '$200',
+			status: 'pending',
+		},
+		{
+			id: '#OD1712',
+			user: 'frank iva',
+			date: '1 Jun 2021',
+			price: '$400',
+			status: 'paid',
+		},
+		{
+			id: '#OD1713',
+			user: 'anthony baker',
+			date: '27 Jun 2021',
+			price: '$200',
+			status: 'refund',
+		},
+	],
+}
+
+const orderStatus = {
+	shipping: 'primary',
+	pending: 'warning',
+	paid: 'success',
+	refund: 'danger',
+}
+
+const renderOrderHead = (item, idx) => <th key={idx}>{item}</th>
+
+const renderOrderBody = (item, idx) => (
+	<tr>
+		<td>{item.id}</td>
+		<td>{item.user}</td>
+		<td>{item.price}</td>
+		<td>{item.date}</td>
+		<td>
+			<span>{item.status}</span>
+		</td>
+	</tr>
+)
+
 const Dashboard = () => {
 	return (
 		<div>
@@ -81,7 +187,32 @@ const Dashboard = () => {
 						<div className='card_header'>
 							<h3>top customers</h3>
 						</div>
-						<div className='card__body'>{/* table */}</div>
+						<div className='card__body'>
+							<Table
+								headData={topCustomers.head}
+								renderHead={(item, idx) => henderCusomerHead(item, idx)}
+								bodyData={topCustomers.body}
+								renderBody={(item, idx) => renderCusomerBody(item, idx)}
+							/>
+						</div>
+						<div className='card__footer'>
+							<Link to='/'>View All</Link>
+						</div>
+					</div>
+				</div>
+				<div className='col-8'>
+					<div className='card'>
+						<div className='card__header '>
+							<h3>latest orders</h3>
+						</div>
+						<div className='card__body'>
+							<Table
+								headData={latestOrders.header}
+								renderHead={(item, idx) => renderOrderHead(item, idx)}
+								bodyData={latestOrders.body}
+								renderBody={(item, idx) => renderOrderBody(item, idx)}
+							/>
+						</div>
 						<div className='card__footer'>
 							<Link to='/'>View All</Link>
 						</div>
