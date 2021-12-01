@@ -2,18 +2,21 @@ import React, { useEffect, useRef, useState } from 'react'
 
 import './thememenu.css'
 
+import ThemeAction from '../../redux/actions/ThemeAction'
+import { useDispatch } from 'react-redux'
+
 const mode_settings = [
 	{
 		id: 'light',
 		name: 'Light',
 		background: 'light-background',
-		class: 'theme-mone-light',
+		class: 'theme-mode-light',
 	},
 	{
 		id: 'dark',
 		name: 'Dark',
 		background: 'dark-background',
-		class: 'theme-mone-dark',
+		class: 'theme-mode-dark',
 	},
 ]
 
@@ -59,6 +62,8 @@ const ThemeMenu = () => {
 	const menu_ref = useRef(null)
 	const menu_toggle_ref = useRef(null)
 
+	const dispatch = useDispatch()
+
 	const setActiveMenu = () => menu_ref.current.classList.add('active')
 	const closeMenu = () => menu_ref.current.classList.remove('active')
 
@@ -67,18 +72,19 @@ const ThemeMenu = () => {
 	const setMode = (mode) => {
 		setCurrMode(mode.id)
 		localStorage.setItem('themeMode', mode.class)
+		dispatch(ThemeAction.setMode(mode.class))
 	}
 
 	const setColor = (color) => {
 		setCurrColor(color.id)
 		localStorage.setIem('colorMode', color.class)
+		dispatch(ThemeAction.setColor(color.class))
 	}
 
 	useEffect(() => {
 		const themeClass = mode_settings.find(
 			(e) => e.class === localStorage.getItem('themeMode', 'theme-mode-light')
 		)
-
 		const colorClass = color_settings.find(
 			(e) => e.class === localStorage.getItem('colorMode', 'theme-mode-light')
 		)

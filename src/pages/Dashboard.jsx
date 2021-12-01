@@ -95,7 +95,7 @@ const renderCusomerBody = (item, idx) => (
 const renderOrderHead = (item, idx) => <th key={idx}>{item}</th>
 
 const renderOrderBody = (item, idx) => (
-	<tr>
+	<tr key={idx}>
 		<td>{item.id}</td>
 		<td>{item.user}</td>
 		<td>{item.price}</td>
@@ -163,7 +163,7 @@ const Dashboard = () => {
 				<div className='col-6'>
 					<div className='row'>
 						{statusCards.map((item, idx) => (
-							<div className='col-6'>
+							<div className='col-6' key={idx}>
 								{item.title}
 								<StatusCard
 									icon={item.icon}
