@@ -1,12 +1,16 @@
-import Chart from 'react-apexcharts'
+import React, { useEffect } from 'react'
 import { Link } from 'react-router-dom'
+import Chart from 'react-apexcharts'
+import { useSelector, useDispatch } from 'react-redux'
 
 import StatusCard from '../components/status-card/StatusCard'
-import statusCards from '../assets/JsonData/status-card-data.json'
-
 import Table from '../components/table/Table'
 import Badge from '../components/badge/Badge'
 
+import statusCards from '../assets/JsonData/status-card-data.json'
+import ThemeAction from '../redux/actions/ThemeAction'
+
+// chart
 const chartOptions = {
 	series: [
 		{
@@ -51,6 +55,17 @@ const chartOptions = {
 	},
 }
 
+// cusomer
+const henderCusomerHead = (item, idx) => <th key={idx}>{item}</th>
+
+const renderCusomerBody = (item, idx) => (
+	<tr key={idx}>
+		<td>{item.username}</td>
+		<td>{item.order}</td>
+		<td>{item.price}</td>
+	</tr>
+)
+
 const topCustomers = {
 	head: ['user', 'total orders', 'total spending'],
 	body: [
@@ -82,16 +97,7 @@ const topCustomers = {
 	],
 }
 
-const henderCusomerHead = (item, idx) => <th key={idx}>{item}</th>
-
-const renderCusomerBody = (item, idx) => (
-	<tr key={idx}>
-		<td>{item.username}</td>
-		<td>{item.order}</td>
-		<td>{item.price}</td>
-	</tr>
-)
-
+// order
 const renderOrderHead = (item, idx) => <th key={idx}>{item}</th>
 
 const renderOrderBody = (item, idx) => (
@@ -156,6 +162,8 @@ const orderStatus = {
 
 // page itself
 const Dashboard = () => {
+	const themeReducer = useSelector((state) => state.ThemeReducer.mode)
+
 	return (
 		<div>
 			<h2 className='page-header'>Dashboard</h2>
@@ -177,7 +185,11 @@ const Dashboard = () => {
 				<div className='col-6'>
 					<div className='card full-height'>
 						<Chart
-							options={chartOptions.options}
+							options={
+								themeReducer === 'theme-mode-dark'
+									? { ...chartOptions.options, theme: { mode: 'dark' } }
+									: { ...chartOptions.options, theme: { mode: 'light' } }
+							}
 							series={chartOptions.series}
 							type='line'
 							height='100%'
